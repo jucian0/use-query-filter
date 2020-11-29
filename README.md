@@ -11,6 +11,11 @@ When the filter's state is persisted in the URL the end-user receives a better e
 
 `useQueryFilter` uses react hook to persist the filter state in a component state and the same state is pushed into the URL. Then every state change is pushed into the URL and if the URL has some value or state when the component is mounting this Url state is propagated into the component state.
 
+## Instalation
+`npm i @use-form/use-query-filter`
+              or
+`yarn add @use-form/use-query-filter`
+
 ## Let's see some examples of use:
 
 ### useQueryFilter
