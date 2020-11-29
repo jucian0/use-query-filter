@@ -17,7 +17,6 @@ When the filter's state is persisted in URL the end-user receives a better exper
 
 
 ```jsx
-
    const initialValues = {
       keywords:'',
       sort:'az'
@@ -25,14 +24,12 @@ When the filter's state is persisted in URL the end-user receives a better exper
 
    const [filter, set, reset] = useQueryState(initialValues)
 
-
    <input name="keywords" onChange={e=>set({keywords:e.target.value})}/>
 
    <select onChange={e=>set({sort:e.target.value})}>
       <option value="az">A - Z</option>
       <option value="za">Z - A</option>
    </select>
-
 ```
 
 ### useFilterContext
@@ -41,25 +38,21 @@ When the filter's state is persisted in URL the end-user receives a better exper
 
 
 ```jsx
-
    const initialValues = {
       keywords:'',
       sort:'az'
    }
-
 
    function Container(){
 
       const filter = useQueryState(initialValues)
 
       return (
-         <>
-            <FilterContext.Provider value={filter}>
-               <Filter/>
-               <List/>
-               <Pagination/>
-            </FilterContext.Provider>
-         </>
+         <FilterContext.Provider value={filter}>
+            <Filter/>
+            <List/>
+            <Pagination/>
+         </FilterContext.Provider>
       )
    }
 ```
