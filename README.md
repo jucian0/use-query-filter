@@ -16,6 +16,9 @@ When the filter's state is persisted in the URL the end-user receives a better e
               or
 `yarn add @use-form/use-query-filter`
 
+## Demo
+https://codesandbox.io/s/use-query-filter-iiend
+
 ## Let's see some examples of use:
 
 ### useQueryFilter
