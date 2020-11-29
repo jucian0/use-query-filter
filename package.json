@@ -1,16 +1,15 @@
 {
   "name": "@use-form/use-query-filter",
   "version": "0.0.1",
-  "description": "UseFom provides a way to create complex forms easily.",
+  "description": "Push the filter state into the Url Query Params.",
   "keywords": [
     "react",
     "hooks",
-    "form",
+    "filter",
     "forms",
-    "form-validation",
-    "validation",
     "typescript",
-    "react-hooks"
+    "url",
+    "query-params"
   ],
   "husky": {
     "hooks": {
@@ -28,7 +27,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/use-form/use-query-filter",
-    "homepage": "https://useform.org/"
+    "homepage": "https://github.com/use-form/use-query-filter"
   },
   "license": "MIT",
   "engines": {
@@ -84,7 +83,6 @@
     "@types/yup": "^0.29.0",
     "babel-jest": "^26.6.2",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "colors": "^1.4.0",
     "commitizen": "^4.1.2",
     "coveralls": "^3.1.0",
     "cross-env": "^7.0.2",
@@ -95,11 +93,9 @@
     "jest-environment-jsdom": "^26.0.1",
     "jest-environment-jsdom-fourteen": "^1.0.1",
     "lint-staged": "^10.2.4",
-    "lodash.camelcase": "^4.3.0",
     "prettier": "^2.0.5",
     "prompt": "^1.0.0",
     "react": "^16.13.1",
-    "react-datepicker": "^2.16.0",
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "replace-in-file": "^6.0.0",
@@ -118,10 +114,6 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
     "typescript": "^3.9.2"
-  },
-  "dependencies": {
-    "dot-prop-immutable": "^2.1.0",
-    "yup": "^0.29.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
