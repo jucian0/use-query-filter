@@ -37,7 +37,7 @@ When the filter's state is persisted in URL the end-user receives a better exper
 
 ### useFilterContext
 
-`useFilterContext` is bellpull when is necessary to shared the filter state with another component, in the same example is very common to have a filter component, a table component and a pagination component, in this case should have a container component and into this component `useFilterContext` should be used like this example:
+`useFilterContext` is helpful when is necessary to shared the filter state with another component, in the same example is very common to have a filter component, a table component and a pagination component, in this case should have a container component and into this component `useFilterContext` should be used like this example:
 
 
 ```jsx
@@ -62,7 +62,8 @@ When the filter's state is persisted in URL the end-user receives a better exper
          </>
       )
    }
-
+```
+```jsx
 
    function Filter(){
 
@@ -79,7 +80,8 @@ When the filter's state is persisted in URL the end-user receives a better exper
          </>
       )
    }
-
+```
+```jsx
 
    function List(){
 
