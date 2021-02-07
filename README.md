@@ -30,7 +30,7 @@ https://codesandbox.io/s/use-query-filter-iiend
       sort:'az'
    }
 
-   const [filter, set, reset] = useQueryState(initialValues)
+   const [filter, set, reset] = useQueryFilter(initialValues)
 
    <input name="keywords" onChange={e=>set({keywords:e.target.value})}/>
 
@@ -53,7 +53,7 @@ https://codesandbox.io/s/use-query-filter-iiend
 
    function Container(){
 
-      const filter = useQueryState(initialValues)
+      const filter = useQueryFilter(initialValues)
 
       return (
          <FilterContext.Provider value={filter}>
