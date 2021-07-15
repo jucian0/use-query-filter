@@ -61,9 +61,15 @@ export function useQueryFilter<
          '',
          `${window.location.pathname}?${params}`,
       )
+
+      return new Promise<TFilter>((resolve) => {
+         setTimeout(() => {
+            resolve({ ...filter, ...value })
+         }, 500)
+      })
    }
 
-   async function reset(fn: (e: TFilter) => void) {
+   async function reset(fn?: (e: TFilter) => void) {
       setFilter(initialState)
 
       const params = new URLSearchParams(initialState as {})
@@ -74,7 +80,12 @@ export function useQueryFilter<
          `${window.location.pathname}?${params}`,
       )
 
-      return fn(initialState)
+      return new Promise<TFilter>((resolve) => {
+         setTimeout(() => {
+            typeof fn === 'function' ? fn(initialState) : null
+            resolve(initialState)
+         }, 500)
+      })
    }
 
    useLayoutEffect(() => {
@@ -86,21 +97,16 @@ export function useQueryFilter<
       } else {
          set({ ...params, ...initialState })
          callbackOnInit?.({ ...params, ...initialState })
-         //setFilter(initialState)
       }
       //eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
-
-   // useLayoutEffect(() => {
-   //    //set({ ...filter, page: 1 })
-   //    // eslint-disable-next-line react-hooks/exhaustive-deps
-   // }, [filter.limit])
 
    return [
       filter,
       {
          set,
          reset,
+         query:window.location.search
       },
    ]
 }
