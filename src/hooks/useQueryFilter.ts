@@ -1,6 +1,8 @@
 import { useState, useLayoutEffect, useEffect } from 'react'
 import { FilterContextType } from './types'
 
+const windowIsLoaded = typeof window !== 'undefined'
+
 function removeEmptyProperties<T>(object: T) {
   return Object.keys(object).reduce<T>((acc, ac) => {
     if (
@@ -28,13 +30,13 @@ export function useQueryFilter<TFilter extends Object>(
     throw Error('`callbackOnInit` argument should be a function.')
   }
   const [filter, setFilter] = useState<TFilter>(
-    window
+    windowIsLoaded
       ? parseObjectFilter(new URLSearchParams(window.location.search))
       : ({} as TFilter)
   )
 
   useEffect(() => {
-    if (window) {
+    if (windowIsLoaded) {
       setFilter(parseObjectFilter(new URLSearchParams(window.location.search)))
     }
   }, [window])
@@ -90,7 +92,7 @@ export function useQueryFilter<TFilter extends Object>(
   }
 
   function replaceWindowState(params: any) {
-    if (window) {
+    if (windowIsLoaded) {
       window.history.replaceState(
         {},
         '',
@@ -100,7 +102,7 @@ export function useQueryFilter<TFilter extends Object>(
   }
 
   useLayoutEffect(() => {
-    if (window) {
+    if (windowIsLoaded) {
       const urlSearch = window.location.search
       const params = parseObjectFilter(new URLSearchParams(urlSearch))
       if (!!urlSearch) {
@@ -119,7 +121,7 @@ export function useQueryFilter<TFilter extends Object>(
     {
       set,
       reset,
-      query: window.location.search,
+      query: windowIsLoaded ? window.location.search : '',
     },
   ]
 }
