@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect, useEffect } from 'react'
 import { FilterContextType } from './types'
 
-const windowIsLoaded = typeof window !== 'undefined'
+const isWindowLoaded = typeof window !== 'undefined'
 
 function removeEmptyProperties<T>(object: T) {
   return Object.keys(object).reduce<T>((acc, ac) => {
@@ -22,21 +22,28 @@ export function useQueryFilter<TFilter extends Object>(
   initialState: TFilter,
   callbackOnInit?: (state: TFilter) => void
 ): FilterContextType<TFilter> {
+  if (!isWindowLoaded) {
+    ;(global as any).window = {}
+  }
+
   if (typeof initialState !== 'object' || Array.isArray(initialState)) {
     throw Error('`initialState` argument should be an object.')
   }
 
-  if (typeof callbackOnInit !== 'function') {
+  if (
+    typeof callbackOnInit !== 'undefined' &&
+    typeof callbackOnInit !== 'function'
+  ) {
     throw Error('`callbackOnInit` argument should be a function.')
   }
   const [filter, setFilter] = useState<TFilter>(
-    windowIsLoaded
+    isWindowLoaded
       ? parseObjectFilter(new URLSearchParams(window.location.search))
       : ({} as TFilter)
   )
 
   useEffect(() => {
-    if (windowIsLoaded) {
+    if (isWindowLoaded) {
       setFilter(parseObjectFilter(new URLSearchParams(window.location.search)))
     }
   }, [window])
@@ -92,7 +99,7 @@ export function useQueryFilter<TFilter extends Object>(
   }
 
   function replaceWindowState(params: any) {
-    if (windowIsLoaded) {
+    if (isWindowLoaded) {
       window.history.replaceState(
         {},
         '',
@@ -102,7 +109,7 @@ export function useQueryFilter<TFilter extends Object>(
   }
 
   useLayoutEffect(() => {
-    if (windowIsLoaded) {
+    if (isWindowLoaded) {
       const urlSearch = window.location.search
       const params = parseObjectFilter(new URLSearchParams(urlSearch))
       if (!!urlSearch) {
@@ -121,7 +128,7 @@ export function useQueryFilter<TFilter extends Object>(
     {
       set,
       reset,
-      query: windowIsLoaded ? window.location.search : '',
+      query: isWindowLoaded ? window.location.search : '',
     },
   ]
 }
