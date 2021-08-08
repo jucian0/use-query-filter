@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from 'react'
+import { useState, useLayoutEffect, useEffect } from 'react'
 import { FilterContextType } from './types'
 
 function removeEmptyProperties<T>(object: T) {
@@ -28,8 +28,16 @@ export function useQueryFilter<TFilter extends Object>(
     throw Error('`callbackOnInit` argument should be a function.')
   }
   const [filter, setFilter] = useState<TFilter>(
-    parseObjectFilter(new URLSearchParams(window.location.search))
+    window
+      ? parseObjectFilter(new URLSearchParams(window.location.search))
+      : ({} as TFilter)
   )
+
+  useEffect(() => {
+    if (window) {
+      setFilter(parseObjectFilter(new URLSearchParams(window.location.search)))
+    }
+  }, [window])
 
   function parseObjectFilter(otherParams: any) {
     return Array.from(otherParams.keys()).reduce<TFilter>((acc, ac, index) => {
@@ -58,7 +66,7 @@ export function useQueryFilter<TFilter extends Object>(
 
     setFilter((state) => ({ ...state, ...value }))
 
-    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
+    replaceWindowState(params)
 
     return new Promise<TFilter>((resolve) => {
       setTimeout(() => {
@@ -71,8 +79,7 @@ export function useQueryFilter<TFilter extends Object>(
     setFilter(initialState)
 
     const params = new URLSearchParams(initialState as {})
-
-    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
+    replaceWindowState(params)
 
     return new Promise<TFilter>((resolve) => {
       setTimeout(() => {
@@ -82,15 +89,27 @@ export function useQueryFilter<TFilter extends Object>(
     })
   }
 
+  function replaceWindowState(params: any) {
+    if (window) {
+      window.history.replaceState(
+        {},
+        '',
+        `${window.location.pathname}?${params}`
+      )
+    }
+  }
+
   useLayoutEffect(() => {
-    const urlSearch = window.location.search
-    const params = parseObjectFilter(new URLSearchParams(urlSearch))
-    if (!!urlSearch) {
-      setFilter(params)
-      callbackOnInit?.(params)
-    } else {
-      set({ ...params, ...initialState })
-      callbackOnInit?.({ ...params, ...initialState })
+    if (window) {
+      const urlSearch = window.location.search
+      const params = parseObjectFilter(new URLSearchParams(urlSearch))
+      if (!!urlSearch) {
+        setFilter(params)
+        callbackOnInit?.(params)
+      } else {
+        set({ ...params, ...initialState })
+        callbackOnInit?.({ ...params, ...initialState })
+      }
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
