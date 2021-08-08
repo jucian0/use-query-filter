@@ -3,9 +3,9 @@
 
 ## Motivation
 
-Recently I worked with some react applications, and our team had needed to persist the filter's state into URL, and we wanted a react hook to turn this work more easily, but we can't find anything to do this.
+Recently I worked with some react applications, and our team needed to persist the filter's state into URL, and we needed a react hook to turn this work more easily, but we could not find anyone to do this.
 
-When the filter's state is persisted in the URL the end-user receives a better experience. It's possible to use browser buttons to navigate in applications, also it's possible to refresh the browser tab and the result is the same because the filter's state is persisted in the URL, another good point is that, whit this approach it's possible to persist pagination, even because the pagination's state and filter's state should be the same.
+When the filter's state is persisted in the URL the user receives a better experience. It's possible to use browser buttons to navigate in applications, also it's possible to refresh the browser tab and the result is the same because the filter's state is persisted in the URL, another good point is that, whit this approach it's possible to persist pagination, even because the pagination's state and filter's state should be the same.
 
 ## How it's works
 
